@@ -12,6 +12,10 @@ import { ThirdwebProvider } from "thirdweb/react";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
+import { Base } from '@thirdweb-dev/chains';
+
+
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -32,7 +36,12 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ThirdwebProvider>
+		<ThirdwebProvider
+			activeChain={Base}
+			clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
+			authConfig={{
+				authUrl: "/api/auth",
+			}}>
 			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
 				<Stack>
 					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
